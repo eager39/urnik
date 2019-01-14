@@ -1,0 +1,9 @@
+table,td,tr{
+    border:1px solid red;
+}
+th{
+    width: auto;
+}
+table{
+    height:700px;
+}

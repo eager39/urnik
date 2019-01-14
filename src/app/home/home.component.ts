@@ -8,6 +8,8 @@ import { ApiDataService } from '../apidata.service';
 })
 export class HomeComponent implements OnInit {
   data;
+  rooms;
+  subject_room;
   constructor(private auth:ApiDataService) { }
 
   ngOnInit() {
@@ -15,5 +17,7 @@ export class HomeComponent implements OnInit {
   }
  async podatki(){
     this.data= await this.auth.get("data").toPromise()
+  this.rooms=this.data[0];
+  this.subject_room=this.data[1];
   }
 }

@@ -13,7 +13,8 @@ var connection = mysql.createConnection({
   host: 'localhost',
   user: conf.DBuser, 
   password: conf.DBpass, 
-  database: 'urnik'
+  database: 'urnik',
+  multipleStatements: true
 })
 
 
@@ -34,13 +35,14 @@ app.use(bodyParser.json());
 
 
 app.get('/data', function(req, res) {
-  
-  var sql='SELECT prostori_id,predmet_id,days_week,prostori.velikost,prostori.ime as prostor,predmet.ime as predmet FROM urnik.prostor_predmet  INNER JOIN prostori on prostori.id=prostor_predmet.prostori_id INNER JOIN predmet on predmet.id=prostor_predmet.predmet_id;';
+  var sql="SELECT * FROM prostori;SELECT prostori_id,predmet_id,days_week,prostori.velikost,prostori.ime as prostor,predmet.ime as predmet FROM urnik.prostor_predmet  INNER JOIN prostori on prostori.id=prostor_predmet.prostori_id INNER JOIN predmet on predmet.id=prostor_predmet.predmet_id"
+  //var sql='SELECT prostori_id,predmet_id,days_week,prostori.velikost,prostori.ime as prostor,predmet.ime as predmet FROM urnik.prostor_predmet  INNER JOIN prostori on prostori.id=prostor_predmet.prostori_id INNER JOIN predmet on predmet.id=prostor_predmet.predmet_id;';
   connection.query(sql, function(err, results) {
     if (err) throw err
-    var data = results;
-    console.log(data);
-    res.send(data);
+ 
+ 
+   
+    res.send(results);
   });
 }, err => {
   console.log("Error " + err);

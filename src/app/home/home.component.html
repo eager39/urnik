@@ -1,13 +1,30 @@
-<table >
-	<tbody>
+<table style="width:100%">
 		<tr>
-			<td> </td>
-			<td> </td>
-			<td> </td>
-			<td> </td>
-			<td> </td>
-			<td> </td>
+		  <th  >prostor</th>
+		  <th >pon</th> 
+		  <th >torek</th>
+		  <th >sreda</th> 
+		  <th >četrtek</th>
+		  <th >petek</th> 
+		  <th >sobota</th>
 		</tr>
-	</tbody>
-</table>
+		
+		<tr *ngFor="let item of rooms ;let i=index">
+			{{item.ime}}
+			
+				<td *ngFor="let number of [0,1,2,3,4,5];let a=index" >
+					{{a}}
+					<ng-container *ngFor="let item2 of subject_room">
+						
+					
+						<ng-container *ngIf="item2.prostori_id== item.id">
+						{{item2.predmet}}
+				</ng-container>
+			</ng-container>
+				</td>
+				
+			  </tr>
+		
+		
+	  </table>
 {{data | json}}
