@@ -1,33 +1,39 @@
-<table style="width:100%">
+<table>
 		<tr>
-		  <th  >prostor</th>
-		  <th >pon</th> 
-		  <th >torek</th>
-		  <th >sreda</th> 
-		  <th >četrtek</th>
-		  <th >petek</th> 
-		  <th >sobota</th>
+		  <th >prostor</th>
+		
+		  <th >pon {{mon |date | date:shortDate}}</th> 
+		  <th >torek {{tue |date | date:shortDate}}</th>
+		  <th >sreda {{wen |date | date:shortDate}}</th> 
+		  <th >četrtek {{thur |date | date:shortDate}}</th>
+		  <th >petek {{fri |date | date:shortDate}}</th> 
+		  <th >sobota {{sat |date | date:shortDate}}</th>
 		</tr>
 		
-		<tr *ngFor="let item of rooms ;let i=index">
-			{{item.ime}}
-			
+		<tr  *ngFor="let item of rooms ;let i=index">
+			<td class="prostor">{{item.ime}}</td>
+		
 				<td *ngFor="let number of [0,1,2,3,4,5];let a=index" >
-					{{a}}
+				
 					<ng-container *ngFor="let item2 of subject_room">
-						
-					
+					<ng-container *ngIf="item2.end_date> currsec">
+					<ng-container *ngIf="item2.days_week.includes(a)">
 						<ng-container *ngIf="item2.prostori_id== item.id">
-						{{item2.predmet}} <br/>{{item2.predmet}} <br/>
-						{{item2.predmet}} <br/>{{item2.predmet}} <br/>
-						{{item2.predmet}} <br/>{{item2.predmet}} <br/>
-						{{item2.predmet}} <br/>{{item2.predmet}} <br/>
+						{{item2.predmet}}:	{{item2.start_time}}-{{item2.end_time}}  <br/>
+						
 				</ng-container>
+			</ng-container>
+			
+		</ng-container>
+			
 			</ng-container>
 				</td>
 				
 			  </tr>
 		
 		
-	  </table>
+	  </table>	{{curr | date:shortDate}}
+	  {{currsec}}
+	  <button (click)="addweek(mon)" >Next week</button>
 {{data | json}}
+

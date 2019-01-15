@@ -35,13 +35,13 @@ app.use(bodyParser.json());
 
 
 app.get('/data', function(req, res) {
-  var sql="SELECT * FROM prostori;SELECT prostori_id,predmet_id,days_week,prostori.velikost,prostori.ime as prostor,predmet.ime as predmet FROM urnik.prostor_predmet  INNER JOIN prostori on prostori.id=prostor_predmet.prostori_id INNER JOIN predmet on predmet.id=prostor_predmet.predmet_id"
+  var sql="SELECT * FROM prostori;SELECT prostori_id,predmet_id,days_week,prostori.velikost,prostori.ime as prostor,predmet.ime as predmet,DATE_FORMAT(start_time, '%H:%i') as start_time, DATE_FORMAT(end_time, '%H:%i') as end_time,UNIX_TIMESTAMP(end_date)*1000 as end_date FROM urnik.prostor_predmet INNER JOIN prostori on prostori.id=prostor_predmet.prostori_id INNER JOIN predmet on predmet.id=prostor_predmet.predmet_id order by start_time asc"
   //var sql='SELECT prostori_id,predmet_id,days_week,prostori.velikost,prostori.ime as prostor,predmet.ime as predmet FROM urnik.prostor_predmet  INNER JOIN prostori on prostori.id=prostor_predmet.prostori_id INNER JOIN predmet on predmet.id=prostor_predmet.predmet_id;';
   connection.query(sql, function(err, results) {
     if (err) throw err
  
  
-   
+   console.log(results)
     res.send(results);
   });
 }, err => {
