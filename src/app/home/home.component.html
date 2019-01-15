@@ -13,13 +13,14 @@
 		<tr  *ngFor="let item of rooms ;let i=index">
 			<td class="prostor">{{item.ime}}</td>
 		
-				<td *ngFor="let number of [0,1,2,3,4,5];let a=index" >
+				<td  *ngFor="let number of [0,1,2,3,4,5];let a=index"  >
 				
 					<ng-container *ngFor="let item2 of subject_room">
 					<ng-container *ngIf="item2.end_date> currsec">
 					<ng-container *ngIf="item2.days_week.includes(a)">
 						<ng-container *ngIf="item2.prostori_id== item.id">
-						{{item2.predmet}}:	{{item2.start_time}}-{{item2.end_time}}  <br/>
+							<span class="cont">
+						<span class="predmet" >{{item2.predmet}}:</span> <span class="time">	{{item2.start_time}}-{{item2.end_time}}</span></span>  <br/>
 						
 				</ng-container>
 			</ng-container>

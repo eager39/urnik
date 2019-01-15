@@ -1,11 +1,12 @@
 const express = require('express')
 var bodyParser = require("body-parser")
 var cors = require('cors')
-
+var fs = require('fs');
 var mysql = require('mysql')
 const app = express()
 var conf = require('./config')
 conf=new conf();
+var ical = require('node-ical');
 
 
 
@@ -16,7 +17,65 @@ var connection = mysql.createConnection({
   database: 'urnik',
   multipleStatements: true
 })
+/*
+var polje=[];
+var location=[];
+var subject=[];
+var event=[];
+var array = fs.readFileSync('basic.ics').toString().split("\n");
+for(i in array) {
+  
+   polje[i]=array[i];
+  
+}
+for(i in polje) {
+  
+  if(polje[i].includes("LOCATION")){
+    
+ location[i]=polje[i].split("LOCATION:")[1]
+ location = location.filter(function(e){ return e.replace(/(\r\n|\n|\r)/gm,"")}); //remove empty ,and breaks
+ location = Array.from(new Set(location)) //only unique
+    
+  }
+  if(polje[i].includes("SUMMARY")){
+    
+    subject[i]=polje[i].split("SUMMARY: | LOCATION: |DTSTART ")[1]
+   // subject = subject.filter(function(e){ return e.replace(/(\r\n|\n|\r)/gm,"")}); //remove empty ,and breaks
+    subject = Array.from(new Set(subject)) //only unique
+       
+     }
+ 
+}
+for (i in location){
+  //console.log(location[i]);
+}
+for (i in subject){
+//  console.log(subject[i]);
+}
+for(i in polje){
+ event.push(polje[i].split("LOCATION:")[1]),polje[i].split("SUMMARY:")[1];
+ 
+}
+for(i in event) {
+ // console.log(event[i]);
+}
 
+ event =event. filter(Boolean);
+ console.log(event);*/
+var polje=[];
+ var data = ical.parseFile("basic.ics", function(err, data) {
+  if (err) console.log(err);
+ // console.log(data);
+  for (var k in data){
+    if (data.hasOwnProperty(k)) {
+   
+      var ev = data[k];
+      console.log(new Date(ev.start));
+   polje.push({"predmet":ev.summary,"lokacija":ev.location,"kdaj":JSON.stringify(ev.start),"konec":JSON.stringify(ev.end),"opis":ev.description})
+    }
+  }
+  console.log(polje[6]);
+});
 
 
 connection.connect(function(err) {
