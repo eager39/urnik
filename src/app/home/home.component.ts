@@ -11,12 +11,13 @@ export class HomeComponent implements OnInit {
   data;
   rooms;
   subject_room;
-mon;tue;wen;thur;fri;sat;curr;currsec;
+mon;tue;wen;thur;fri;sat;curr;currsec;now;
   constructor(private auth:ApiDataService, public zone: NgZone) { }
 
   ngOnInit() {
     this.podatki()
     this.curr = new Date;
+    this.now = new Date;
     this.currsec=new Date().getTime();
    
 
@@ -45,5 +46,8 @@ mon;tue;wen;thur;fri;sat;curr;currsec;
     this.fri = new Date(this.fri.setTime(this.fri.getTime() + weekInMilliseconds));
     this.sat = new Date(this.sat.setTime(this.sat.getTime() + weekInMilliseconds));
     this.zone.run(() =>   this.currsec = new Date(this.curr.setTime(this.curr.getTime() + weekInMilliseconds)).getTime())
+  }
+  random(a){
+    console.log(a);
   }
 }
