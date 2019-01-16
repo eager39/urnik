@@ -7,6 +7,7 @@ var mysql = require('mysql')
 const app = express()
 var conf = require('./config')
 conf=new conf();
+var util = require('util')
 var ical = require('node-ical')
 
 var now = new Date();
@@ -64,9 +65,9 @@ for(i in event) {
 
  event =event. filter(Boolean);
  console.log(event);*/
- var j = schedule.scheduleJob('0 0 0 * * *', function(){
+ //var j = schedule.scheduleJob('0 0 0 * * *', function(){
  var events=[];
-var polje=[];
+var polje1=[],polje2=[],polje3=[],polje4=[],polje5=[];
 var prostori=[];
 var promise1 = new Promise(function(resolve, reject) {
   var data = ical.fromURL("http://www.google.com/calendar/ical/academia.si_k49so77cbr6dsalbjeovcv3poo%40group.calendar.google.com/public/basic.ics",{}, function(err, data) {
@@ -76,17 +77,18 @@ var promise1 = new Promise(function(resolve, reject) {
     if (values.hasOwnProperty(k)) {
    
       var ev = values[k];
-      
-     if(Date.parse(ev.start)/1000>Math.floor(new Date().getTime()/1000)){
+    
+      if((Date.parse(ev.start))/1000>(Math.floor(new Date().getTime()/1000))){
       
        // prostori.push(ev.location)
       // prostori= Array.from(new Set(prostori));
-      polje.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000)])     }
+      polje1.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000)])     }
       
   
     }
   }
- resolve(polje);
+ 
+ resolve(polje1);
 });
 });
 var promise2 = new Promise(function(resolve, reject) {
@@ -98,16 +100,17 @@ var promise2 = new Promise(function(resolve, reject) {
    
       var ev = values[k];
       
-     if(Date.parse(ev.start)/1000>Math.floor(new Date().getTime()/1000)){
+    
+      if((Date.parse(ev.start))/1000>(Math.floor(new Date().getTime()/1000))){
       
         // prostori.push(ev.location)
       // prostori= Array.from(new Set(prostori));
-      polje.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000)])      }
+      polje2.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000)])      }
       
   
     }
   }
-  resolve(polje);
+  resolve(polje2);
 });
 });
 var promise3 = new Promise(function(resolve, reject) {
@@ -119,16 +122,17 @@ var promise3 = new Promise(function(resolve, reject) {
    
       var ev = values[k];
       
-     if(Date.parse(ev.start)/1000>Math.floor(new Date().getTime()/1000)){
+     
+      if((Date.parse(ev.start))/1000>(Math.floor(new Date().getTime()/1000))){
       
      // prostori.push(ev.location)
       // prostori= Array.from(new Set(prostori));
-      polje.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000)])      }
+      polje3.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000)])      }
       
   
     }
   }
-  resolve(polje);
+  resolve(polje3);
 });
 });
 var promise4 = new Promise(function(resolve, reject) {
@@ -140,44 +144,46 @@ var promise4 = new Promise(function(resolve, reject) {
    
       var ev = values[k];
       
-      if(Date.parse(ev.start)/1000>Math.floor(new Date().getTime()/1000)){
+      
+      if((Date.parse(ev.start))/1000>(Math.floor(new Date().getTime()/1000))){
       
         // prostori.push(ev.location)
       // prostori= Array.from(new Set(prostori));
-      polje.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000)])      }
+      polje4.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000)])      }
       
   
     }
   }
-  resolve(polje);
+  resolve(polje4);
 });
 });
 var promise5 = new Promise(function(resolve, reject) {
   var data = ical.fromURL("http://www.google.com/calendar/ical/academia.si_0i01hedl2iac2klrbvlhuj61q8%40group.calendar.google.com/public/basic.ics",{}, function(err, data) {
   if (err) reject(err);
-  console.log(values)
+  
   values=data
   for (var k in values){
     if (values.hasOwnProperty(k)) {
    
       var ev = values[k];
       
-      if(Date.parse(ev.start)/1000>Math.floor(new Date().getTime()/1000)){
+      if((Date.parse(ev.start))/1000>(Math.floor(new Date().getTime()/1000))){
       
        // prostori.push(ev.location)
       // prostori= Array.from(new Set(prostori));
-     polje.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000)])
+     polje5.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000)])
      }
       
   
     }
   }
-  resolve(polje);
+  console.log(polje5.length)
+  resolve(polje5);
 });
 });
 
 
-/*Promise.all([promise1, promise2, promise3,promise4,promise5]).then(function(values) {
+ Promise.all([promise1, promise2, promise3,promise4,promise5]).then(function(values) {
   
 for(var i=0;i<values.length;i++){
 for(var j=0;j<values[i].length;j++){
@@ -187,24 +193,38 @@ for(var j=0;j<values[i].length;j++){
 }
 
 prostori= Array.from(new Set(prostori));
-console.log(events);
-*/
+insertEvents()
+//console.log(events);
+async function insertEvents(){
+
+  connection.query = util.promisify(connection.query)
+var del="DELETE FROM prostor_predmet"
+
 var sql="INSERT INTO prostor_predmet  (predmet,prostor,start_date,end_date) VALUES ?"
 //var sql='SELECT prostori_id,predmet_id,days_week,prostori.velikost,prostori.ime as prostor,predmet.ime as predmet FROM urnik.prostor_predmet  INNER JOIN prostori on prostori.id=prostor_predmet.prostori_id INNER JOIN predmet on predmet.id=prostor_predmet.predmet_id;';
-/*connection.query(sql,[events],function(err, results) {
-  if (err) throw err
+//connection.query(sql,[events],function(err, results) {
+ // if (err) throw err
+ try{
+   var data1=await connection.query(del)
+   var data=await connection.query(sql,[events])
+ }catch(err){
+   console.log("error deleting"+err)
+ }
+
+ 
 
 
- console.log(results)
-  res.send(results);
-});
+console.log(data);
+ ///console.log(results)
+  //res.send(results);
+//});
  
 
  
+}
+});
 
-});
-*/
-});
+//});// cron
 /*
  var data = ical.fromURL("http://www.google.com/calendar/ical/academia.si_k49so77cbr6dsalbjeovcv3poo%40group.calendar.google.com/public/basic.ics",{}, function(err, data) {
   if (err) console.log(err);
