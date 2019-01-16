@@ -32,6 +32,7 @@ mon;tue;wen;thur;fri;sat;curr;currsec;now;test;
  async podatki(){
     this.data= await this.auth.get("data").toPromise()
   this.rooms=this.data[0];
+  console.log(this.rooms)
   this.subject_room=this.data[1];
   }
 
@@ -47,10 +48,13 @@ mon;tue;wen;thur;fri;sat;curr;currsec;now;test;
     this.sat = new Date(this.sat.setTime(this.sat.getTime() + weekInMilliseconds));
     this.zone.run(() =>   this.currsec = new Date(this.curr.setTime(this.curr.getTime() + weekInMilliseconds)).getTime())
   }
-  random(a){
+  danes(a,item){
     this.test = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+1));
     this.test= new Date(this.test.setDate(this.test.getDate()+a));
-    return this.test
+    item.getDate();
+    //alert(item)
+   // return this.test
 
   }
+  
 }
