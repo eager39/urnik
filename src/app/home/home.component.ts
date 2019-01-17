@@ -51,7 +51,13 @@ mon;tue;wen;thur;fri;sat;curr;currsec;now;test;
   danes(a,item){
     this.test = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+1));
     this.test= new Date(this.test.setDate(this.test.getDate()+a));
-    item.getDate();
+    this.test.setHours(0,0,0,0)
+   item=new Date(item*1000)
+   item.setHours(0,0,0,0)
+    if(item.getTime() == this.test.getTime()){
+      return true
+    }
+    //console.log(item.setHours(0,0,0,0) +" VS"+ this.test.getTime())
     //alert(item)
    // return this.test
 

@@ -65,7 +65,7 @@ for(i in event) {
 
  event =event. filter(Boolean);
  console.log(event);*/
- //var j = schedule.scheduleJob('0 0 0 * * *', function(){
+ var j = schedule.scheduleJob('0 0 0 * * *', function(){
  var events=[];
 var polje1=[],polje2=[],polje3=[],polje4=[],polje5=[];
 var prostori=[];
@@ -193,9 +193,9 @@ for(var j=0;j<values[i].length;j++){
 }
 
 prostori= Array.from(new Set(prostori));
-insertEvents()
+
 //console.log(events);
-async function insertEvents(){
+
 
   connection.query = util.promisify(connection.query)
 var del="DELETE FROM prostor_predmet"
@@ -204,27 +204,44 @@ var sql="INSERT INTO prostor_predmet  (predmet,prostor,start_date,end_date) VALU
 //var sql='SELECT prostori_id,predmet_id,days_week,prostori.velikost,prostori.ime as prostor,predmet.ime as predmet FROM urnik.prostor_predmet  INNER JOIN prostori on prostori.id=prostor_predmet.prostori_id INNER JOIN predmet on predmet.id=prostor_predmet.predmet_id;';
 //connection.query(sql,[events],function(err, results) {
  // if (err) throw err
+ connection.beginTransaction(function(err) {
+insertEvents()
+
+   async function insertEvents(){
+
  try{
    var data1=await connection.query(del)
    var data=await connection.query(sql,[events])
+
+     connection.commit(function(err) {
+    console.log('Transaction Complete.');
+    connection.end();
+  });
  }catch(err){
    console.log("error deleting"+err)
+   connection.rollback(function() {
+     console.log("rollback")
+    
+  });
  }
 
+   }
+ 
+ });
  
 
 
-console.log(data);
+
  ///console.log(results)
   //res.send(results);
 //});
  
 
  
-}
+
 });
 
-//});// cron
+});// cron
 /*
  var data = ical.fromURL("http://www.google.com/calendar/ical/academia.si_k49so77cbr6dsalbjeovcv3poo%40group.calendar.google.com/public/basic.ics",{}, function(err, data) {
   if (err) console.log(err);
@@ -266,7 +283,7 @@ app.use(bodyParser.json());
 
 
 app.get('/data', function(req, res) {
-  var sql="SELECT DISTINCT(prostor) FROM prostor_predmet;SELECT predmet,prostor,end_date,start_date FROM urnik.prostor_predmet  order by start_date asc"
+  var sql="SELECT DISTINCT(prostor) FROM prostor_predmet;SELECT predmet,prostor,end_date,start_date FROM urnik.prostor_predmet  order by start_date asc "
   //var sql='SELECT prostori_id,predmet_id,days_week,prostori.velikost,prostori.ime as prostor,predmet.ime as predmet FROM urnik.prostor_predmet  INNER JOIN prostori on prostori.id=prostor_predmet.prostori_id INNER JOIN predmet on predmet.id=prostor_predmet.predmet_id;';
   connection.query(sql, function(err, results) {
     if (err) throw err

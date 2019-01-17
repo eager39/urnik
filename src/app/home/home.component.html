@@ -19,9 +19,9 @@
 					<ng-container *ngIf="danes(a,item2.start_date)">
 					
 						<ng-container *ngIf="item2.prostor== item.prostor">
-							<span class="cont">
+						<div class="ime"><p>{{item2.predmet}}</p></div><div class="cas">{{item2.start_date*1000 | date:'HH:mm'}}-{{item2.end_date*1000 | date:'HH:mm'}}</div><br/>
 								
-						<span class="predmet" >{{item2.predmet}}:</span> <span class="time">	{{item2.start_time}}-{{item2.end_time}}</span></span>  <br/>
+					<!--	<span class="predmet" >{{item2.predmet}}:</span> <span class="time">	{{item2.start_date*1000 | date:'HH:mm'}}-{{item2.end_date*1000 | date:'HH:mm'}}</span>  <br/>-->
 						
 				</ng-container>
 			</ng-container>
@@ -34,8 +34,8 @@
 			  </tr>
 		
 		
-	  </table>	{{curr | date:shortDate}}
-	  {{currsec}}
+	  </table>	
+	 
 	  <button (click)="addweek(mon)" >Next week</button>
 {{data | json}}
 

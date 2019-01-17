@@ -1,12 +1,15 @@
 table,td,tr{
     border:1px solid red;
-    max-width: 800px;
+   
+    padding: 0!important;
+    margin: 0;
 }
 th{
    
 }
 table{
-    white-space: nowrap;
+    
+    word-wrap: break-word
 }
 
 table {
@@ -50,3 +53,16 @@ table {
     background-color: #4CAF50;
     color: white;
   }
+  .ime{
+      width: 60%;
+      min-height:100%;
+      background-color: blue;
+      display:inline-block;
+  }
+  .cas{
+    width: 40%;
+    min-height:100%;
+    background-color: grey;
+    display:inline-block;
+  
+}
