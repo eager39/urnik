@@ -1,68 +1,98 @@
 table,td,tr{
-    border:1px solid red;
+ 
    
     padding: 0!important;
     margin: 0;
 }
-th{
-   
-}
-table{
-    
-    word-wrap: break-word
-}
+
 
 table {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100% !important;
-    
-  }
-  table span{
+     word-wrap: break-word;
      
   }
-  .predmet{
-    float:left
-
+  tr{
+    border-bottom: 5px dotted white;
   }
-  .cont{ 
-      border-bottom: 1px solid green;
-     
-     
+  td{
+   
   }
-  .time{
-      float:right
-  }
+ 
+ 
+ 
   .prostor{
       font-size: 30px
   }
   
    td,  th {
     border: 1px solid #ddd;
-    padding: 8px;
+  
+  }
+  td{
+    
   }
   
    tr:nth-child(even){background-color: #f2f2f2;}
-  
-   tr:hover {background-color: #ddd;}
+ 
   
    th {
-    padding-top: 12px;
-    padding-bottom: 12px;
+   
     text-align: left;
     background-color: #4CAF50;
     color: white;
   }
   .ime{
-      width: 60%;
-      min-height:100%;
-      background-color: blue;
-      display:inline-block;
+      width: 100%;
+   font-size: 20px;
+    position: relative;
+    top:0;
+    
+  min-height: 100px;
+    
+     margin-top: 5px;
+    
+      
   }
+ 
   .cas{
-    width: 40%;
-    min-height:100%;
-    background-color: grey;
-    display:inline-block;
-  
+    position: relative;
+    bottom: 0;
+    right: 0;
+    text-align:center;
+    width: 100%;
+    color:white;
+   
+   
+
+}
+.ime h3,p{
+   margin: 0;
+   padding: 0;
+     
+}
+.ime h3{
+text-align: center;
+}
+.ime p{
+    display: inline-block;
+    vertical-align: middle;
+    text-align:center;
+    width: 100%;
+}
+.Gradbenistvo{
+    background-color: rgb(192, 118, 6)!important
+}
+.Varovanje{
+    background-color: rgb(71, 12, 235)!important
+}
+.Strojnistvo{
+    background-color: rgb(165, 6, 6)!important
+}
+.Ekonomist{
+    background-color: rgb(28, 138, 6)!important
+}
+.Medijska{
+    background-color: rgb(145, 5, 145)!important
 }

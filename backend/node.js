@@ -65,7 +65,7 @@ for(i in event) {
 
  event =event. filter(Boolean);
  console.log(event);*/
- var j = schedule.scheduleJob('0 0 0 * * *', function(){
+ //var j = schedule.scheduleJob('* * * * * *', function(){
  var events=[];
 var polje1=[],polje2=[],polje3=[],polje4=[],polje5=[];
 var prostori=[];
@@ -82,7 +82,7 @@ var promise1 = new Promise(function(resolve, reject) {
       
        // prostori.push(ev.location)
       // prostori= Array.from(new Set(prostori));
-      polje1.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000)])     }
+      polje1.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000),"Ekonomist"])     }
       
   
     }
@@ -100,12 +100,12 @@ var promise2 = new Promise(function(resolve, reject) {
    
       var ev = values[k];
       
-    
+    //
       if((Date.parse(ev.start))/1000>(Math.floor(new Date().getTime()/1000))){
       
         // prostori.push(ev.location)
       // prostori= Array.from(new Set(prostori));
-      polje2.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000)])      }
+      polje2.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000),"Gradbenistvo"])      }
       
   
     }
@@ -123,11 +123,12 @@ var promise3 = new Promise(function(resolve, reject) {
       var ev = values[k];
       
      
-      if((Date.parse(ev.start))/1000>(Math.floor(new Date().getTime()/1000))){
+     if((Date.parse(ev.start))/1000>(Math.floor(new Date().getTime()/1000))){
       
      // prostori.push(ev.location)
       // prostori= Array.from(new Set(prostori));
-      polje3.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000)])      }
+      polje3.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000),"Medijska produkcija"]) 
+       }
       
   
     }
@@ -149,7 +150,7 @@ var promise4 = new Promise(function(resolve, reject) {
       
         // prostori.push(ev.location)
       // prostori= Array.from(new Set(prostori));
-      polje4.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000)])      }
+      polje4.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000),"Strojnistvo"])      }
       
   
     }
@@ -162,22 +163,24 @@ var promise5 = new Promise(function(resolve, reject) {
   if (err) reject(err);
   
   values=data
-  for (var k in values){
+ 
+  for (var k in values){ 
+    
     if (values.hasOwnProperty(k)) {
    
       var ev = values[k];
       
-      if((Date.parse(ev.start))/1000>(Math.floor(new Date().getTime()/1000))){
+     if((Date.parse(ev.start))/1000>(Math.floor(new Date().getTime()/1000))){
       
        // prostori.push(ev.location)
       // prostori= Array.from(new Set(prostori));
-     polje5.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000)])
-     }
+     polje5.push([ev.summary,ev.location,(Date.parse(ev.start)/1000),(Date.parse(ev.end)/1000),"Varovanje"])
+    }
       
   
     }
   }
-  console.log(polje5.length)
+ 
   resolve(polje5);
 });
 });
@@ -188,22 +191,28 @@ var promise5 = new Promise(function(resolve, reject) {
 for(var i=0;i<values.length;i++){
 for(var j=0;j<values[i].length;j++){
   prostori.push(values[i][j][1])
-  events.push(values[i][j])
+  if(values[i][j].includes(NaN)){
+console.log(values[i][j].includes(undefined,NaN))
+  }else{
+     events.push(values[i][j])
+  }
+ 
 }
 }
-
+//console.log(events)
 prostori= Array.from(new Set(prostori));
 
-//console.log(events);
+console.log(events);
 
 
   connection.query = util.promisify(connection.query)
 var del="DELETE FROM prostor_predmet"
 
-var sql="INSERT INTO prostor_predmet  (predmet,prostor,start_date,end_date) VALUES ?"
+var sql="INSERT INTO prostor_predmet  (predmet,prostor,start_date,end_date,smer) VALUES ?"
 //var sql='SELECT prostori_id,predmet_id,days_week,prostori.velikost,prostori.ime as prostor,predmet.ime as predmet FROM urnik.prostor_predmet  INNER JOIN prostori on prostori.id=prostor_predmet.prostori_id INNER JOIN predmet on predmet.id=prostor_predmet.predmet_id;';
 //connection.query(sql,[events],function(err, results) {
  // if (err) throw err
+ 
  connection.beginTransaction(function(err) {
 insertEvents()
 
@@ -215,7 +224,7 @@ insertEvents()
 
      connection.commit(function(err) {
     console.log('Transaction Complete.');
-    connection.end();
+    
   });
  }catch(err){
    console.log("error deleting"+err)
@@ -224,11 +233,11 @@ insertEvents()
     
   });
  }
-
+ 
    }
- 
+   
  });
- 
+
 
 
 
@@ -241,7 +250,7 @@ insertEvents()
 
 });
 
-});// cron
+//});// cron
 /*
  var data = ical.fromURL("http://www.google.com/calendar/ical/academia.si_k49so77cbr6dsalbjeovcv3poo%40group.calendar.google.com/public/basic.ics",{}, function(err, data) {
   if (err) console.log(err);
@@ -283,7 +292,7 @@ app.use(bodyParser.json());
 
 
 app.get('/data', function(req, res) {
-  var sql="SELECT DISTINCT(prostor) FROM prostor_predmet;SELECT predmet,prostor,end_date,start_date FROM urnik.prostor_predmet  order by start_date asc "
+  var sql="SELECT ime as prostor FROM prostori;SELECT smer,predmet,prostor,end_date,start_date FROM urnik.prostor_predmet  order by start_date asc "
   //var sql='SELECT prostori_id,predmet_id,days_week,prostori.velikost,prostori.ime as prostor,predmet.ime as predmet FROM urnik.prostor_predmet  INNER JOIN prostori on prostori.id=prostor_predmet.prostori_id INNER JOIN predmet on predmet.id=prostor_predmet.predmet_id;';
   connection.query(sql, function(err, results) {
     if (err) throw err

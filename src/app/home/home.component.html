@@ -18,16 +18,24 @@
 					<ng-container *ngFor="let item2 of subject_room">
 					<ng-container *ngIf="danes(a,item2.start_date)">
 					
-						<ng-container *ngIf="item2.prostor== item.prostor">
-						<div class="ime"><p>{{item2.predmet}}</p></div><div class="cas">{{item2.start_date*1000 | date:'HH:mm'}}-{{item2.end_date*1000 | date:'HH:mm'}}</div><br/>
+						<ng-container  *ngIf="item2.prostor== item.prostor ">
+						
+						<div    class="ime {{item2.smer}} ">
+							<h3>{{item2.smer}}</h3>
+							<p>{{item2.predmet}}</p>
+							<p class="cas">{{item2.start_date*1000 | date:'HH:mm'}}-{{item2.end_date*1000 | date:'HH:mm'}}</p>
+						</div>
+					<!---	<div class="cas {{item2.smer}}">{{item2.start_date*1000 | date:'HH:mm'}}-{{item2.end_date*1000 | date:'HH:mm'}}</div>-->
 								
 					<!--	<span class="predmet" >{{item2.predmet}}:</span> <span class="time">	{{item2.start_date*1000 | date:'HH:mm'}}-{{item2.end_date*1000 | date:'HH:mm'}}</span>  <br/>-->
-						
-				</ng-container>
+									
+				</ng-container>	
+				
 			</ng-container>
-			
+				
 		</ng-container>
-			
+	
+
 			
 				</td>
 				
@@ -37,5 +45,6 @@
 	  </table>	
 	 
 	  <button (click)="addweek(mon)" >Next week</button>
-{{data | json}}
+	  <button (click)="removeweek(mon)" >previous week</button>
+
 

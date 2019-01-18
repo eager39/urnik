@@ -10,11 +10,12 @@ import { ApiDataService } from '../apidata.service';
 export class HomeComponent implements OnInit {
   data;
   rooms;
-  subject_room;
+  subject_room=[];
 mon;tue;wen;thur;fri;sat;curr;currsec;now;test;
   constructor(private auth:ApiDataService, public zone: NgZone) { }
-
+st=0;
   ngOnInit() {
+   
     this.podatki()
     this.curr = new Date;
     this.now = new Date;
@@ -30,10 +31,18 @@ mon;tue;wen;thur;fri;sat;curr;currsec;now;test;
    this.sat = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+6));
   }
  async podatki(){
+     
     this.data= await this.auth.get("data").toPromise()
   this.rooms=this.data[0];
   console.log(this.rooms)
-  this.subject_room=this.data[1];
+ 
+  for(var i=0;i<this.data[1].length;i++){
+  
+    if((this.sat.getTime()/1000)>this.data[1][i].start_date){
+       this.subject_room.push(this.data[1][i]);
+    }
+  }
+ 
   }
 
   addweek(){
@@ -46,7 +55,25 @@ mon;tue;wen;thur;fri;sat;curr;currsec;now;test;
     this.thur = new Date(this.thur.setTime(this.thur.getTime() + weekInMilliseconds));
     this.fri = new Date(this.fri.setTime(this.fri.getTime() + weekInMilliseconds));
     this.sat = new Date(this.sat.setTime(this.sat.getTime() + weekInMilliseconds));
-    this.zone.run(() =>   this.currsec = new Date(this.curr.setTime(this.curr.getTime() + weekInMilliseconds)).getTime())
+    this.zone.run(() =>   this.currsec = new Date(this.curr.setTime(this.curr.getTime() + weekInMilliseconds)).getTime(),
+    this.podatki(),
+    
+    )
+  }
+  removeweek(){
+    
+    var weekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
+  
+    this.mon = new Date(this.mon.setTime(this.mon.getTime() - weekInMilliseconds));
+    this.tue = new Date(this.tue.setTime(this.tue.getTime() - weekInMilliseconds));
+    this.wen = new Date(this.wen.setTime(this.wen.getTime() - weekInMilliseconds));
+    this.thur = new Date(this.thur.setTime(this.thur.getTime() - weekInMilliseconds));
+    this.fri = new Date(this.fri.setTime(this.fri.getTime() - weekInMilliseconds));
+    this.sat = new Date(this.sat.setTime(this.sat.getTime() - weekInMilliseconds));
+    this.zone.run(() =>   this.currsec = new Date(this.curr.setTime(this.curr.getTime() - weekInMilliseconds)).getTime(),
+    this.podatki(),
+    
+    )
   }
   danes(a,item){
     this.test = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+1));
@@ -62,5 +89,8 @@ mon;tue;wen;thur;fri;sat;curr;currsec;now;test;
    // return this.test
 
   }
+
+
+  
   
 }
