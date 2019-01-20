@@ -1,4 +1,97 @@
-table,td,tr{
+
+.Gradbenistvo{
+    background-color: rgba(192, 118, 6, 0.521)!important;
+    
+}
+.Varovanje{
+    background-color: rgb(71, 12, 235,0.53)!important;
+}
+.Strojnistvo{
+    background-color: rgb(165, 6, 6,0.53)!important;
+}
+.Ekonomist{
+    background-color: rgb(28, 138, 6,0.53)!important;
+}
+.Medijska{
+    background-color: rgb(145, 5, 145,0.53)!important;
+}
+.container{
+    
+
+    
+    
+}
+.td > div {
+    flex: 1;
+    flex-basis: auto;
+    
+    font-size: 30px;
+    justify-content: center;
+  
+  }
+
+
+
+
+
+
+.table {
+    display: flex;
+    flex-flow: column nowrap;
+    font-size: .8rem;
+    
+    line-height: 1.5;
+    border-bottom: 1px solid #d0d0d0;
+    flex: 1 1 auto;
+  }
+  
+  .th {
+    display: none;
+    font-weight: 700;
+    background-color: #f2f2f2;
+  }
+  
+  .th > .td {
+    white-space: normal;
+    justify-content: center;
+  }
+  
+  .tr {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+  }
+  
+  .tr:nth-of-type(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .tr:nth-of-type(odd) {
+    background-color: #ffffff;
+  }
+  
+  .td {
+    display: flex;
+    flex-flow: row nowrap ;
+    flex-grow: 1;
+    
+   
+    align-items: center;
+    justify-content: center;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+   
+    border: 1px solid #d0d0d0;
+  }
+
+  
+  
+  
+  
+  
+  table,td,tr{
  
    
     padding: 0!important;
@@ -99,8 +192,3 @@ text-align: center;
 .Medijska{
     background-color: rgb(145, 5, 145,0.53)!important;
 }
-
-
-
-
-
