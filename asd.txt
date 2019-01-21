@@ -1,0 +1,114 @@
+<!--
+<table>
+		<tr>
+		  <th >prostor</th>
+		
+		  <th >pon {{mon |date | date:shortDate}}</th> 
+		  <th >torek {{tue |date | date:shortDate}}</th>
+		  <th >sreda {{wen |date | date:shortDate}}</th> 
+		  <th >četrtek {{thur |date | date:shortDate}}</th>
+		  <th >petek {{fri |date | date:shortDate}}</th> 
+		  <th >sobota {{sat |date | date:shortDate}}</th>
+		</tr>
+		
+		<tr  *ngFor="let item of rooms ;let i=index">
+			<td class="prostor">{{item.prostor}}</td>
+		
+				<td  *ngFor="let number of [0,1,2,3,4,5];let a=index"  >
+				
+					<ng-container *ngFor="let item2 of subject_room">
+					<ng-container *ngIf="danes(a,item2.start_date)">
+					
+						<ng-container  *ngIf="item2.prostor== item.prostor ">
+						
+						<div    class="ime {{item2.smer}} ">
+							<h3>{{item2.smer}}</h3>
+							<p>{{item2.predmet}}</p>
+							<p class="cas">{{item2.start_date*1000 | date:'HH:mm'}}-{{item2.end_date*1000 | date:'HH:mm'}}</p>
+						</div>
+					
+									
+				</ng-container>	
+				
+			</ng-container>
+				
+		</ng-container>
+	
+
+			
+				</td>
+				
+			  </tr>
+		
+		
+	  </table>	
+	 
+	  <button (click)="addweek(mon)" >Next week</button>
+	  <button (click)="removeweek(mon)" >previous week</button> -->
+
+	  <div class="table">
+		<div class="tr th">
+		  <div class="td"
+			style="flex: 1">
+			Name
+		  </div>
+		  <div class="td" style="flex: 1">
+			Items Bought
+		  </div>
+		  <div class="td" style="flex-grow: 2;">
+			Clicked
+		  </div>
+		  <div class="td" style="flex-grow: 2;">
+			Duration
+		  </div>
+		  <div class="td" style="flex-grow: 2;">
+			Lifetime Total
+		  </div>
+		  <div class="td" style="flex-grow: 2;">
+			Total
+		  </div>
+		  <div class="td" style="flex-grow: 2;">
+			Total
+		  </div>
+		</div>
+		
+		  </div>
+		<div class="tr" *ngFor="let item of rooms ;let i=index">
+		  <div class="td" >
+			<span >{{item.prostor}}</span>
+			
+		  </div>
+		  <div class="td"  *ngFor="let number of [0,1,2,3,4,5];let a=index">
+		
+			<ng-container *ngFor="let item2 of subject_room">
+				<ng-container *ngIf="danes(a,item2.start_date)">
+				
+					<ng-container  *ngIf="item2.prostor== item.prostor ">
+					
+					
+						<div    class="{{item2.smer}} ">
+							
+							<h3>{{item2.smer}}</h3>
+							<p>{{item2.predmet}}</p>
+							<p class="cas">{{item2.start_date*1000 | date:'HH:mm'}}-{{item2.end_date*1000 | date:'HH:mm'}}</p>
+						</div>
+						
+						
+					
+				
+								
+			</ng-container>	
+			
+		</ng-container>
+			
+	</ng-container>
+
+		  
+		</div>
+		  
+		
+		  
+	  </div>
+	  <button (click)="addweek(mon)" >Next week</button>
+	  <button (click)="removeweek(mon)" >previous week</button>
+	

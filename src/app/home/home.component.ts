@@ -31,7 +31,7 @@ st=0;
    this.sat = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+6));
   }
  async podatki(){
-     
+  this.subject_room=[];
     this.data= await this.auth.get("data").toPromise()
   this.rooms=this.data[0];
   console.log(this.rooms)
