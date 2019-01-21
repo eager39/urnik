@@ -192,7 +192,7 @@ for(var i=0;i<values.length;i++){
 for(var j=0;j<values[i].length;j++){
   prostori.push(values[i][j][1])
   if(values[i][j].includes(NaN)){
-console.log(values[i][j].includes(undefined,NaN))
+
   }else{
      events.push(values[i][j])
   }

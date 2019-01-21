@@ -14,10 +14,10 @@ table {
      
   }
   tr{
-    border-bottom: 5px dotted white;
+   border-bottom: 3px solid black
   }
   td{
-  
+  border-right: 3px solid black
   }
  
  
@@ -26,8 +26,9 @@ table {
       font-size: 30px
   }
   
-   td,  th {
-    border: 1px solid #ddd;
+    th {
+   border-right: 3px solid black;
+   font-size: 20px;
   
   }
   td{
@@ -52,7 +53,7 @@ table {
    
   min-height: 100px;
     
-     margin-top: 5px;
+
     
       
   }
