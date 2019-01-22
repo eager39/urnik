@@ -2,7 +2,7 @@
 		<tr>
 		  <th >prostor</th>
 		
-		  <th >pon {{mon |date | date:shortDate}}</th> 
+		  <th >ponedeljek {{mon |date | date:shortDate}}</th> 
 		  <th >torek {{tue |date | date:shortDate}}</th>
 		  <th >sreda {{wen |date | date:shortDate}}</th> 
 		  <th >četrtek {{thur |date | date:shortDate}}</th>
@@ -43,5 +43,7 @@
 	 
 	  <button (click)="addweek(mon)" >Next week</button>
 	  <button (click)="removeweek(mon)" >previous week</button>
-
+	  <form [formGroup]="weekForm">
+	  Izberi datum<input type="date" (change)="pickWeek()" formControlName="week" >
+</form>
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, NgZone  } from '@angular/core';
 import { ApiDataService } from '../apidata.service';
+import {FormControl,FormGroup} from '@angular/forms'
 
 
 @Component({
@@ -12,10 +13,17 @@ export class HomeComponent implements OnInit {
   rooms;
   subject_room=[];
 mon;tue;wen;thur;fri;sat;curr;currsec;now;test;
-  constructor(private auth:ApiDataService, public zone: NgZone) { }
+
+  constructor(private auth:ApiDataService, public zone: NgZone
+    ) {
+     
+   }
+   weekForm=new FormGroup({
+    week: new FormControl()
+  })
 st=0;
   ngOnInit() {
-   
+    
     this.podatki()
     this.curr = new Date;
     this.now = new Date;
@@ -55,10 +63,10 @@ st=0;
     this.thur = new Date(this.thur.setTime(this.thur.getTime() + weekInMilliseconds));
     this.fri = new Date(this.fri.setTime(this.fri.getTime() + weekInMilliseconds));
     this.sat = new Date(this.sat.setTime(this.sat.getTime() + weekInMilliseconds));
-    this.zone.run(() =>   this.currsec = new Date(this.curr.setTime(this.curr.getTime() + weekInMilliseconds)).getTime(),
-    this.podatki(),
+     this.curr.setTime(this.curr.getTime() + weekInMilliseconds)
+    this.podatki()
     
-    )
+   
   }
   removeweek(){
     
@@ -70,13 +78,14 @@ st=0;
     this.thur = new Date(this.thur.setTime(this.thur.getTime() - weekInMilliseconds));
     this.fri = new Date(this.fri.setTime(this.fri.getTime() - weekInMilliseconds));
     this.sat = new Date(this.sat.setTime(this.sat.getTime() - weekInMilliseconds));
-    this.zone.run(() =>   this.currsec = new Date(this.curr.setTime(this.curr.getTime() - weekInMilliseconds)).getTime(),
-    this.podatki(),
+     this.curr.setTime(this.curr.getTime() - weekInMilliseconds)
+    this.podatki()
+  
     
-    )
   }
   danes(a,item){
     this.test = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+1));
+    
     this.test= new Date(this.test.setDate(this.test.getDate()+a));
     this.test.setHours(0,0,0,0)
    item=new Date(item*1000)
@@ -88,6 +97,46 @@ st=0;
     //alert(item)
    // return this.test
 
+  }
+  pickWeek(){
+   var selected;
+   var weekInMilliseconds;
+   var sign;
+    selected=new Date(this.weekForm.value.week).setHours(0,0,0,0)
+   if(this.sat.setHours(0,0,0,0)<selected){
+    var timeDiff = Math.abs(selected - this.curr);
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+     weekInMilliseconds = diffDays * 24 * 60 * 60 * 1000;
+     
+    this.mon = new Date(this.mon.setTime(this.mon.getTime()+  weekInMilliseconds));
+    this.tue = new Date(this.tue.setTime(this.tue.getTime() + weekInMilliseconds));
+    this.wen = new Date(this.wen.setTime(this.wen.getTime() +  weekInMilliseconds));
+    this.thur = new Date(this.thur.setTime(this.thur.getTime() +  weekInMilliseconds));
+    this.fri = new Date(this.fri.setTime(this.fri.getTime() +  weekInMilliseconds));
+    this.sat = new Date(this.sat.setTime(this.sat.getTime() +  weekInMilliseconds));
+     this.curr.setTime(this.curr.getTime() +  weekInMilliseconds)
+
+
+   }else{
+    var timeDiff = Math.abs( this.curr-selected );
+    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+    alert(diffDays)
+     weekInMilliseconds = diffDays * 24 * 60 * 60 * 1000;
+   
+     this.mon = new Date(this.mon.setTime(this.mon.getTime()-  weekInMilliseconds));
+     this.tue = new Date(this.tue.setTime(this.tue.getTime() - weekInMilliseconds));
+     this.wen = new Date(this.wen.setTime(this.wen.getTime() -  weekInMilliseconds));
+     this.thur = new Date(this.thur.setTime(this.thur.getTime() -  weekInMilliseconds));
+     this.fri = new Date(this.fri.setTime(this.fri.getTime() -  weekInMilliseconds));
+     this.sat = new Date(this.sat.setTime(this.sat.getTime() -  weekInMilliseconds));
+      this.curr.setTime(this.curr.getTime() -  weekInMilliseconds)
+   }
+   
+  
+    this.podatki()
+    
+    
+   
   }
 
 
