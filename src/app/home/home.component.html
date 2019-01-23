@@ -41,9 +41,9 @@
 		
 	  </table>	
 	 
-	  <button (click)="addweek(mon)" >Next week</button>
-	  <button (click)="removeweek(mon)" >previous week</button>
+	  <button (click)="addweek(mon)" >Naslednji teden</button>
+	  <button (click)="removeweek(mon)" >Prejšni teden</button>
 	  <form [formGroup]="weekForm">
-	  Izberi datum<input type="date" (change)="pickWeek()" formControlName="week" >
+	  Izberi datum:<input type="date" (change)="pickWeek()" formControlName="week" >
 </form>
 

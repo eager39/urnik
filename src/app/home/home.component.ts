@@ -120,7 +120,7 @@ st=0;
    }else{
     var timeDiff = Math.abs( this.curr-selected );
     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-    alert(diffDays)
+    
      weekInMilliseconds = diffDays * 24 * 60 * 60 * 1000;
    
      this.mon = new Date(this.mon.setTime(this.mon.getTime()-  weekInMilliseconds));
