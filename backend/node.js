@@ -65,7 +65,7 @@ for(i in event) {
 
  event =event. filter(Boolean);
  console.log(event);*/
- //var j = schedule.scheduleJob('* * * * * *', function(){
+ var j = schedule.scheduleJob('0 0 0 * * *', function(){
  var events=[];
 var polje1=[],polje2=[],polje3=[],polje4=[],polje5=[];
 var prostori=[];
@@ -250,7 +250,7 @@ insertEvents()
 
 });
 
-//});// cron
+});// cron
 /*
  var data = ical.fromURL("http://www.google.com/calendar/ical/academia.si_k49so77cbr6dsalbjeovcv3poo%40group.calendar.google.com/public/basic.ics",{}, function(err, data) {
   if (err) console.log(err);

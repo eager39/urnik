@@ -2,12 +2,12 @@
 		<tr>
 		  <th >prostor</th>
 		
-		  <th >ponedeljek {{mon |date | date:shortDate}}</th> 
-		  <th >torek {{tue |date | date:shortDate}}</th>
-		  <th >sreda {{wen |date | date:shortDate}}</th> 
-		  <th >četrtek {{thur |date | date:shortDate}}</th>
-		  <th >petek {{fri |date | date:shortDate}}</th> 
-		  <th >sobota {{sat |date | date:shortDate}}</th>
+		  <th >ponedeljek {{mon |date | date:'shortDate'}}</th> 
+		  <th >torek {{tue |date | date:'shortDate'}}</th>
+		  <th >sreda {{wen |date | date:'shortDate'}}</th> 
+		  <th >četrtek {{thur |date | date:'shortDate'}}</th>
+		  <th >petek {{fri |date | date:'shortDate'}}</th> 
+		  <th >sobota {{sat |date | date:'shortDate'}}</th>
 		</tr>
 		
 		<tr  *ngFor="let item of rooms ;let i=index">
@@ -41,8 +41,8 @@
 		
 	  </table>	
 	 
-	  <button (click)="addweek(mon)" >Naslednji teden</button>
-	  <button (click)="removeweek(mon)" >Prejšni teden</button>
+	  <button (click)="addweek()" >Naslednji teden</button>
+	  <button (click)="removeweek()" >Prejšni teden</button>
 	  <form [formGroup]="weekForm">
 	  Izberi datum:<input type="date" (change)="pickWeek()" formControlName="week" >
 </form>
