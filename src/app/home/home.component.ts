@@ -39,14 +39,16 @@ st=0;
    this.sat = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+6));
   }
  async podatki(){
+  var today=new Date();
+  var ago7=today.setDate(today.getDate() - 7);
   this.subject_room=[];
     this.data= await this.auth.get("data").toPromise()
   this.rooms=this.data[0];
   console.log(this.rooms)
  
   for(var i=0;i<this.data[1].length;i++){
-  
-    if((this.sat.getTime()/1000)>this.data[1][i].start_date){
+    
+    if(Math.floor(ago7)>this.data[1][i].start_date){
        this.subject_room.push(this.data[1][i]);
     }
   }

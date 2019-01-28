@@ -1,18 +1,11 @@
 
-
-//prod.DBuser="registracije";
-//prod.DBpass="jf83d.dfDF8s"
-
-
-
-
 module.exports = function(){
     switch(process.env.NODE_ENV){
         case 'dev':
-            return {DBuser:"root",DBpass:""};
+            return {DBuser:"root",DBpass:"",database:"urnik"};
 
         case 'prod':
-            return {DBuser:"registracije",DBpass:""};
+            return {DBuser:"nodejsShared",DBpass:"",database:"nodejsAcademiaUrnik"};
 
         default:
             return  {DBuser:"root",DBpass:""};
