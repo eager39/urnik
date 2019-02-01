@@ -8,6 +8,6 @@ module.exports = function(){
             return {DBuser:"nodejsShared",DBpass:"",database:"nodejsAcademiaUrnik"};
 
         default:
-            return  {DBuser:"root",DBpass:""};
+            return  {DBuser:"root",DBpass:"",database:"urnik"};
     }
 };

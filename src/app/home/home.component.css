@@ -1,8 +1,10 @@
+
 table,td,tr{
  
    
     padding: 0!important;
     margin: 0;
+    
 }
 
 
@@ -11,29 +13,37 @@ table {
     border-collapse: collapse;
     width: 100% !important;
      word-wrap: break-word;
-     
+   font-size:15px;
+   
+   max-height: 100%;
+  
   }
   tr{
    border-bottom: 3px solid black
   }
   td{
-  border-right: 3px solid black
+  border-right: 3px solid black;
+  
+  
   }
  
  
  
   .prostor{
-      font-size: 30px
+      display:table-cell;
+    font-size: auto;
+    
+      vertical-align: middle;
   }
   
     th {
    border-right: 3px solid black;
-   font-size: 20px;
+  
   
   }
   td{
     display: table-cell;
-    vertical-align: top;
+    vertical-align: top;    
   }
   
    tr:nth-child(even){background-color: #f2f2f2;}
@@ -41,17 +51,17 @@ table {
   
    th {
    
-    text-align: left;
+    text-align: center;
     background-color: #4CAF50;
     color: white;
   }
   .ime{
       width: 100%;
-   font-size: 20px;
+  flex:1;
     position: relative;
-   
-   
-  min-height: 120px;
+   font-size: 1em;
+   min-height: 90px;
+  
     
 
     
@@ -60,7 +70,7 @@ table {
  
   .cas{
       display:inline-block;
-    position: absolute;
+  position:absolute;
     bottom: 0;
     right: 0;
     text-align:center;
@@ -89,16 +99,16 @@ text-align: center;
     
 }
 .Varovanje{
-    background-color: rgb(71, 12, 235,0.53)!important;
+    background-color: rgba(71, 12, 235,0.53)!important;
 }
 .Strojnistvo{
-    background-color: rgb(165, 6, 6,0.53)!important;
+    background-color: rgba(165, 6, 6,0.53)!important;
 }
 .Ekonomist{
-    background-color: rgb(28, 138, 6,0.53)!important;
+    background-color: rgba(28, 138, 6,0.53)!important;
 }
 .Medijska{
-    background-color: rgb(145, 5, 145,0.53)!important;
+    background-color: rgba(145, 5, 145,0.53)!important;
 }
 
 

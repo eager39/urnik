@@ -100,6 +100,9 @@ st=0;
    // return this.test
 
   }
+   isOverflown(element) {
+    alert( element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth);
+}
   pickWeek(){
    var selected;
    var weekInMilliseconds;
