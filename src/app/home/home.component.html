@@ -1,4 +1,4 @@
-<table >
+<table [ngStyle]="{'font-size.px': 300/(st*st)}">
 		<tr>
 		  <th >prostor</th>
 		
@@ -10,23 +10,24 @@
 		  <th >sobota {{sat |date | date:'shortDate'}}</th>
 		</tr>
 		
-		<tr  *ngFor="let item of rooms ;let i=index">
+		<tr   *ngFor="let item of rooms ;let i=index">
 			<td  class="prostor">{{item.prostor}}</td>
 		
 				<td  *ngFor="let number of [0,1,2,3,4,5];let a=index"  >
 				
 					<ng-container *ngFor="let item2 of subject_room">
-					<ng-container *ngIf="danes(a,item2.start_date)">
+					<ng-container  *ngIf="danes(a,item2.start_date)">
 					
-						<ng-container  *ngIf="item2.prostor== item.prostor ">
+						<ng-container  *ngIf="item2.prostor == item.prostor ">
 						
 						<div    class="ime {{item2.smer}} ">
+							
 							<h3>{{item2.smer}}</h3>
 							<p>{{item2.predmet}}</p>
 							<p class="cas">{{item2.start_date*1000 | date:'HH:mm'}}-{{item2.end_date*1000 | date:'HH:mm'}}</p>
 						</div>
 									
-				</ng-container>	
+				</ng-container >	
 				
 			</ng-container>
 				
@@ -44,6 +45,7 @@
 	  <button (click)="addweek()" >Naslednji teden</button>
 	  <button (click)="removeweek()" >Prejšni teden</button>
 	  <form [formGroup]="weekForm">
+		  {{st}}
 	  Izberi datum:<input type="date" (change)="pickWeek()" formControlName="week" >
 </form>
 

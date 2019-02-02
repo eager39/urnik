@@ -9,10 +9,11 @@ import {FormControl,FormGroup} from '@angular/forms'
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  stevilo=0;
   data;
   rooms;
   subject_room=[];
-mon;tue;wen;thur;fri;sat;curr;currsec;now;test;
+mon;tue;wen;thur;fri;sat;curr;currsec;now;test;sun;
 
   constructor(private auth:ApiDataService, public zone: NgZone
     ) {
@@ -30,7 +31,7 @@ st=0;
     this.currsec=new Date().getTime();
    
 
-  
+    this.sun = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()));
    this.mon = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+1));
    this.tue = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+2));
    this.wen = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+3));
@@ -38,27 +39,37 @@ st=0;
    this. fri = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+5));
    this.sat = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+6));
   }
+ 
  async podatki(){
   var today=new Date();
   var ago7=today.setDate(today.getDate() - 7);
-  this.subject_room=[];
+  
+  console.log(this.subject_room)
+ 
     this.data= await this.auth.get("data").toPromise()
   this.rooms=this.data[0];
   console.log(this.rooms)
  
   for(var i=0;i<this.data[1].length;i++){
     
-    if(Math.floor(ago7)>this.data[1][i].start_date){
+    if(Math.floor(ago7)>this.data[1][i].start_date && this.sat.getTime()/1000>this.data[1][i].start_date){
+      console.log(this.data[1][i].start_date)
+      if(Math.floor(this.sun.getTime()/1000)<this.data[1][i].start_date && this.sat.getTime()/1000>this.data[1][i].start_date){
+        console.log(this.sun)
+        this.st++;
+      }
        this.subject_room.push(this.data[1][i]);
     }
   }
+  console.log(this.subject_room)
  
   }
 
   addweek(){
-    
+    this.subject_room.length=0;
+    this.st=0;
     var weekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
-  
+    this.sun = new Date(this.sun.setTime(this.sun.getTime() + weekInMilliseconds));
     this.mon = new Date(this.mon.setTime(this.mon.getTime() + weekInMilliseconds));
     this.tue = new Date(this.tue.setTime(this.tue.getTime() + weekInMilliseconds));
     this.wen = new Date(this.wen.setTime(this.wen.getTime() + weekInMilliseconds));
@@ -71,9 +82,10 @@ st=0;
    
   }
   removeweek(){
-    
+    this.subject_room.length=0;
+    this.st=0;
     var weekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
-  
+    this.sun = new Date(this.sun.setTime(this.sun.getTime() - weekInMilliseconds));
     this.mon = new Date(this.mon.setTime(this.mon.getTime() - weekInMilliseconds));
     this.tue = new Date(this.tue.setTime(this.tue.getTime() - weekInMilliseconds));
     this.wen = new Date(this.wen.setTime(this.wen.getTime() - weekInMilliseconds));
@@ -87,7 +99,7 @@ st=0;
   }
   danes(a,item){
     this.test = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+1));
-    
+   
     this.test= new Date(this.test.setDate(this.test.getDate()+a));
     this.test.setHours(0,0,0,0)
    item=new Date(item*1000)
@@ -100,19 +112,18 @@ st=0;
    // return this.test
 
   }
-   isOverflown(element) {
-    alert( element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth);
-}
+   
   pickWeek(){
    var selected;
    var weekInMilliseconds;
    var sign;
+   this.st=0;
     selected=new Date(this.weekForm.value.week).setHours(0,0,0,0)
    if(this.sat.setHours(0,0,0,0)<selected){
     var timeDiff = Math.abs(selected - this.curr);
     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
      weekInMilliseconds = diffDays * 24 * 60 * 60 * 1000;
-     
+     this.sun = new Date(this.sun.setTime(this.sun.getTime() + weekInMilliseconds));
     this.mon = new Date(this.mon.setTime(this.mon.getTime()+  weekInMilliseconds));
     this.tue = new Date(this.tue.setTime(this.tue.getTime() + weekInMilliseconds));
     this.wen = new Date(this.wen.setTime(this.wen.getTime() +  weekInMilliseconds));
@@ -127,7 +138,7 @@ st=0;
     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
     
      weekInMilliseconds = diffDays * 24 * 60 * 60 * 1000;
-   
+     this.sun = new Date(this.sun.setTime(this.sun.getTime() - weekInMilliseconds));
      this.mon = new Date(this.mon.setTime(this.mon.getTime()-  weekInMilliseconds));
      this.tue = new Date(this.tue.setTime(this.tue.getTime() - weekInMilliseconds));
      this.wen = new Date(this.wen.setTime(this.wen.getTime() -  weekInMilliseconds));
