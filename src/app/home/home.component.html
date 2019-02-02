@@ -1,4 +1,4 @@
-<table [ngStyle]="{'font-size.px': 300/(st*st)}">
+<table [ngStyle]="{'font-size.px':20-diff }">
 		<tr>
 		  <th >prostor</th>
 		
@@ -45,7 +45,7 @@
 	  <button (click)="addweek()" >Naslednji teden</button>
 	  <button (click)="removeweek()" >Prejšni teden</button>
 	  <form [formGroup]="weekForm">
-		  {{st}}
+		  {{vt}}  {{st}}
 	  Izberi datum:<input type="date" (change)="pickWeek()" formControlName="week" >
 </form>
 

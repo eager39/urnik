@@ -1,6 +1,8 @@
 import { Component, OnInit, NgZone  } from '@angular/core';
 import { ApiDataService } from '../apidata.service';
 import {FormControl,FormGroup} from '@angular/forms'
+import { HighlightDelayBarrier } from 'blocking-proxy/built/lib/highlight_delay_barrier';
+import { ConsoleReporter } from 'jasmine';
 
 
 @Component({
@@ -23,6 +25,8 @@ mon;tue;wen;thur;fri;sat;curr;currsec;now;test;sun;
     week: new FormControl()
   })
 st=0;
+vt=0;
+diff=0;
   ngOnInit() {
     
     this.podatki()
@@ -41,10 +45,18 @@ st=0;
   }
  
  async podatki(){
+   var kdaj;
+   var timesmon=0;
+   var timestue=0;
+   var timeswen=0;
+   var timesthur=0;
+   var timesfri=0;
+   var timessat=0;
+   var dan;
   var today=new Date();
   var ago7=today.setDate(today.getDate() - 7);
   
-  console.log(this.subject_room)
+  console.log(this.subject_room=new Array())
  
     this.data= await this.auth.get("data").toPromise()
   this.rooms=this.data[0];
@@ -52,21 +64,50 @@ st=0;
  
   for(var i=0;i<this.data[1].length;i++){
     
-    if(Math.floor(ago7)>this.data[1][i].start_date && this.sat.getTime()/1000>this.data[1][i].start_date){
-      console.log(this.data[1][i].start_date)
+  
+      kdaj=this.data[1][i].start_date;
+     dan=new Date(kdaj*1000).getDate();
       if(Math.floor(this.sun.getTime()/1000)<this.data[1][i].start_date && this.sat.getTime()/1000>this.data[1][i].start_date){
-        console.log(this.sun)
+          if(dan==this.mon.getDate()){
+            timesmon++;
+          }
+          if(dan==this.tue.getDate()){
+            timestue++;
+          }
+          if(dan==this.wen.getDate()){
+            timeswen++;
+          }
+          if(dan==this.thur.getDate()){
+            timesthur++;
+          }
+          if(dan==this.fri.getDate()){
+            timesfri++;
+          }
+          if(dan==this.sat.getDate()){
+            timessat++;
+          }
+         
+        
+         this.subject_room.push(this.data[1][i]);
         this.st++;
       }
-       this.subject_room.push(this.data[1][i]);
-    }
+      
+    
   }
+ this.vt=Math.max(timesmon,timestue,timeswen,timesthur,timesfri,timessat);
   console.log(this.subject_room)
+  if(this.st>18 || this.vt>5){
+    alert("haha")
+    this.diff=5;
+  
+  }else{
+    this.diff=0;
+  }
  
   }
 
   addweek(){
-    this.subject_room.length=0;
+    this.subject_room=new Array();
     this.st=0;
     var weekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
     this.sun = new Date(this.sun.setTime(this.sun.getTime() + weekInMilliseconds));
@@ -82,7 +123,7 @@ st=0;
    
   }
   removeweek(){
-    this.subject_room.length=0;
+    this.subject_room=new Array();
     this.st=0;
     var weekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
     this.sun = new Date(this.sun.setTime(this.sun.getTime() - weekInMilliseconds));
