@@ -23,11 +23,14 @@ mon;tue;wen;thur;fri;sat;curr;currsec;now;test;sun;
    weekForm=new FormGroup({
     week: new FormControl()
   })
+  interval;
 st=0;
 vt=0;
 diff=0;
   ngOnInit() {
-    
+    this.interval = setInterval(() => {
+      this.podatki();
+  }, 60000);
     this.podatki()
     this.curr = new Date;
     this.now = new Date;

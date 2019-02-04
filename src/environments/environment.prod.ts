@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: "///urnik.academia.upam.si:3001"
+  baseUrl: "///urnik.academia.upam.si:3001/d"
 };
