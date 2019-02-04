@@ -1,8 +1,7 @@
 import { Component, OnInit, NgZone  } from '@angular/core';
 import { ApiDataService } from '../apidata.service';
 import {FormControl,FormGroup} from '@angular/forms'
-import { HighlightDelayBarrier } from 'blocking-proxy/built/lib/highlight_delay_barrier';
-import { ConsoleReporter } from 'jasmine';
+
 
 
 @Component({
@@ -97,7 +96,7 @@ diff=0;
  this.vt=Math.max(timesmon,timestue,timeswen,timesthur,timesfri,timessat);
   console.log(this.subject_room)
   if(this.st>18 || this.vt>5){
-    alert("haha")
+  
     this.diff=5;
   
   }else{
@@ -148,36 +147,39 @@ diff=0;
     if(item.getTime() == this.test.getTime()){
       return true
     }
-    //console.log(item.setHours(0,0,0,0) +" VS"+ this.test.getTime())
-    //alert(item)
-   // return this.test
+
 
   }
    
   pickWeek(){
    var selected;
    var weekInMilliseconds;
-   var sign;
    this.st=0;
     selected=new Date(this.weekForm.value.week).setHours(0,0,0,0)
+    selected=new Date(selected)
+    selected = new Date(selected.setDate(selected.getDate() - selected.getDay()+1));
+    console.log(selected)
+    this.subject_room=new Array();
    if(this.sat.setHours(0,0,0,0)<selected){
+   
     var timeDiff = Math.abs(selected - this.curr);
     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+   console.log(diffDays)
      weekInMilliseconds = diffDays * 24 * 60 * 60 * 1000;
-     this.sun = new Date(this.sun.setTime(this.sun.getTime() + weekInMilliseconds));
-    this.mon = new Date(this.mon.setTime(this.mon.getTime()+  weekInMilliseconds));
-    this.tue = new Date(this.tue.setTime(this.tue.getTime() + weekInMilliseconds));
-    this.wen = new Date(this.wen.setTime(this.wen.getTime() +  weekInMilliseconds));
-    this.thur = new Date(this.thur.setTime(this.thur.getTime() +  weekInMilliseconds));
-    this.fri = new Date(this.fri.setTime(this.fri.getTime() +  weekInMilliseconds));
-    this.sat = new Date(this.sat.setTime(this.sat.getTime() +  weekInMilliseconds));
+     this.sun = new Date(selected.setDate(selected.getDate() - selected.getDay()));
+     this.mon = new Date(selected.setDate(selected.getDate() - selected.getDay()+1));
+     this.tue = new Date(selected.setDate(selected.getDate() - selected.getDay()+2));
+     this.wen = new Date(selected.setDate(selected.getDate() - selected.getDay()+3));
+     this.thur = new Date(selected.setDate(selected.getDate() - selected.getDay()+4));
+     this. fri = new Date(selected.setDate(selected.getDate() - selected.getDay()+5));
+     this.sat = new Date(selected.setDate(selected.getDate() - selected.getDay()+6));
      this.curr.setTime(this.curr.getTime() +  weekInMilliseconds)
-
+   
 
    }else{
     var timeDiff = Math.abs( this.curr-selected );
     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-    
+    console.log(diffDays)
      weekInMilliseconds = diffDays * 24 * 60 * 60 * 1000;
      this.sun = new Date(this.sun.setTime(this.sun.getTime() - weekInMilliseconds));
      this.mon = new Date(this.mon.setTime(this.mon.getTime()-  weekInMilliseconds));
@@ -187,10 +189,11 @@ diff=0;
      this.fri = new Date(this.fri.setTime(this.fri.getTime() -  weekInMilliseconds));
      this.sat = new Date(this.sat.setTime(this.sat.getTime() -  weekInMilliseconds));
       this.curr.setTime(this.curr.getTime() -  weekInMilliseconds)
+     
    }
    
-  
-    this.podatki()
+   this.podatki()
+    
     
     
    

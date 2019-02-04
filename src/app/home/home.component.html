@@ -1,17 +1,17 @@
-<table [ngStyle]="{'font-size.px':20-diff }">
+<table [ngStyle]="{'font-size.px':15-diff }">
 		<tr>
-		  <th >prostor</th>
+		  <th >Prostor</th>
 		
-		  <th >ponedeljek {{mon |date | date:'shortDate'}}</th> 
-		  <th >torek {{tue |date | date:'shortDate'}}</th>
-		  <th >sreda {{wen |date | date:'shortDate'}}</th> 
-		  <th >četrtek {{thur |date | date:'shortDate'}}</th>
-		  <th >petek {{fri |date | date:'shortDate'}}</th> 
-		  <th >sobota {{sat |date | date:'shortDate'}}</th>
+		  <th >ponedeljek {{mon |date | date:'d/M/yy'}}</th> 
+		  <th >torek {{tue |date | date:'d/M/yy'}}</th>
+		  <th >sreda {{wen |date | date:'d/M/yy'}}</th> 
+		  <th >četrtek {{thur |date | date:'d/M/yy'}}</th>
+		  <th >petek {{fri |date | date:'d/M/yy'}}</th> 
+		  <th >sobota {{sat |date | date:'d/M/yy'}}</th>
 		</tr>
 		
 		<tr   *ngFor="let item of rooms ;let i=index">
-			<td  class="prostor">{{item.prostor}}</td>
+			<td  class="prostor">{{item.value}}</td>
 		
 				<td  *ngFor="let number of [0,1,2,3,4,5];let a=index"  >
 				
@@ -41,11 +41,11 @@
 		
 		
 	  </table>	
-	 
-	  <button (click)="addweek()" >Naslednji teden</button>
 	  <button (click)="removeweek()" >Prejšni teden</button>
+	  <button (click)="addweek()" >Naslednji teden</button>
+	 
 	  <form [formGroup]="weekForm">
-		  {{vt}}  {{st}}
-	  Izberi datum:<input type="date" (change)="pickWeek()" formControlName="week" >
+		  
+ <!-- Izberi datum:<input type="date" (change)="pickWeek()" formControlName="week" > -->
 </form>
 

@@ -159,7 +159,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.get('/data', function(req, res) {
-   var sql = "SELECT ime as prostor FROM prostori;SELECT smer,predmet,prostor,end_date,start_date FROM prostor_predmet  order by start_date asc "
+   var sql = "SELECT ime as prostor,value FROM prostori;SELECT smer,predmet,prostor,end_date,start_date FROM prostor_predmet  order by start_date asc "
    connection.query(sql, function(err, results) {
       if (err) throw err
       console.log(results)
@@ -171,7 +171,7 @@ app.get('/data', function(req, res) {
 app.get("/updateUrnik", function(req, res) {
    updateUrnik().then(function(values) {
       if (values == true) {
-         res.send("Urnik je posodobljen")
+         res.json("Urnik je posodobljen")
       }
    })
 })
