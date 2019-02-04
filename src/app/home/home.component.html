@@ -1,4 +1,4 @@
-<table [ngStyle]="{'font-size.px':15-diff }">
+<table [ngStyle]="{'font-size.px':15 }">
 		<tr>
 		  <th >Prostor</th>
 		
@@ -11,7 +11,7 @@
 		</tr>
 		
 		<tr   *ngFor="let item of rooms ;let i=index">
-			<td  class="prostor">{{item.value}}</td>
+			<td  [ngStyle]="{'font-size.px':15-diff }"  class="prostor">{{item.value}}<br/>{{item.nad}}</td>
 		
 				<td  *ngFor="let number of [0,1,2,3,4,5];let a=index"  >
 				
@@ -20,7 +20,7 @@
 					
 						<ng-container  *ngIf="item2.prostor == item.prostor ">
 						
-						<div    class="ime {{item2.smer}} ">
+						<div  [ngStyle]="{'font-size.px':15-diff,'min-height.px':75-diff*5}"   class="ime {{item2.smer}} ">
 							
 							<h3>{{item2.smer}}</h3>
 							<p>{{item2.predmet}}</p>

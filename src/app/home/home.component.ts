@@ -98,9 +98,9 @@ diff=0;
   }
  this.vt=Math.max(timesmon,timestue,timeswen,timesthur,timesfri,timessat);
   console.log(this.subject_room)
-  if(this.st>18 || this.vt>5){
+  if(this.st>15 || this.vt>5){
   
-    this.diff=5;
+    this.diff=1;
   
   }else{
     this.diff=0;

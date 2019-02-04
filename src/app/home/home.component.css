@@ -33,7 +33,7 @@ table {
   .prostor{
       display:table-cell;
    font-size: 20px!important;
-    
+   white-space:nowrap;
       vertical-align: middle;
   }
   
@@ -61,7 +61,7 @@ table {
 
     position: relative;
    font-size: 2vh;
-height: 85px;
+
     
 
     
@@ -97,16 +97,17 @@ text-align: center;
     
 }
 .Varovanje{
-    background-color: rgba(71, 12, 235,0.53)!important;
+    background-color: rgba(28, 138, 6,0.53)!important;
+    
 }
 .Strojnistvo{
-    background-color: rgba(165, 6, 6,0.53)!important;
+    background-color: rgb(58, 14, 253)!important;
 }
 .Ekonomist{
-    background-color: rgba(28, 138, 6,0.53)!important;
+    background-color: rgba(71, 12, 235,0.53)!important;
 }
 .Medijska{
-    background-color: rgba(145, 5, 145,0.53)!important;
+    background-color: rgba(255, 15, 15, 0.897)!important;
 }
 
 
