@@ -23,7 +23,7 @@
 						<div  [ngStyle]="{'font-size.px':15-diff,'min-height.px':75-diff*5}"   class="ime {{item2.smer}} ">
 							
 							<h3>{{item2.smer}}</h3>
-							<p>{{item2.predmet}}</p>
+							<p>{{item2.predmet | slice:0:40}}</p>
 							<p class="cas">{{item2.start_date*1000 | date:'HH:mm'}}-{{item2.end_date*1000 | date:'HH:mm'}}</p>
 						</div>
 									

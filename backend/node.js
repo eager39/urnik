@@ -25,6 +25,8 @@ function updateUrnik() {
           polje3 = [],
           polje4 = [],
           polje5 = [];
+          polje6 = [];
+          polje7 = [];
       var prostori = [];
       var today = new Date();
       var ago7 = today.setDate(today.getDate() - 7);
@@ -104,7 +106,37 @@ function updateUrnik() {
             resolve(polje5);
          });
       });
-      Promise.all([promise1, promise2, promise3, promise4, promise5]).then(function(values) {
+      var promise6 = new Promise(function(resolve, reject) {
+         var data = ical.fromURL("https://calendar.google.com/calendar/ical/academia.si_v4iluahdsa9tsb17rous66bf5c%40group.calendar.google.com/public/basic.ics", {}, function(err, data) {
+            if (err) reject(err);
+            values = data
+            for (var k in values) {
+               if (values.hasOwnProperty(k)) {
+                  var ev = values[k];
+                  if ((Date.parse(ev.start)) / 1000 > (Math.floor(ago7 / 1000))) {
+                     polje6.push([ev.summary, ev.location, (Date.parse(ev.start) / 1000), (Date.parse(ev.end) / 1000), "Economist"])
+                  }
+               }
+            }
+            resolve(polje6);
+         });
+      });
+      var promise7 = new Promise(function(resolve, reject) {
+         var data = ical.fromURL("https://calendar.google.com/calendar/ical/academia.si_ols0n6kmtrkm137f0fjc7re1m0%40group.calendar.google.com/public/basic.ics", {}, function(err, data) {
+            if (err) reject(err);
+            values = data
+            for (var k in values) {
+               if (values.hasOwnProperty(k)) {
+                  var ev = values[k];
+                  if ((Date.parse(ev.start)) / 1000 > (Math.floor(ago7 / 1000))) {
+                     polje7.push([ev.summary, ev.location, (Date.parse(ev.start) / 1000), (Date.parse(ev.end) / 1000), "Mechanical Engineering"])
+                  }
+               }
+            }
+            resolve(polje7);
+         });
+      });
+      Promise.all([promise1, promise2, promise3, promise4, promise5,promise6,promise7]).then(function(values) {
          for (var i = 0; i < values.length; i++) {
             for (var j = 0; j < values[i].length; j++) {
                prostori.push(values[i][j][1])
