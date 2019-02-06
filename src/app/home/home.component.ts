@@ -1,6 +1,7 @@
 import { Component, OnInit, NgZone  } from '@angular/core';
 import { ApiDataService } from '../apidata.service';
 import {FormControl,FormGroup} from '@angular/forms'
+import { ActivatedRoute,Router, ActivationEnd } from '@angular/router';
 
 
 
@@ -16,7 +17,7 @@ export class HomeComponent implements OnInit {
   subject_room=[];
 mon;tue;wen;thur;fri;sat;curr;currsec;now;test;sun;
 
-  constructor(private auth:ApiDataService, public zone: NgZone
+  constructor(private auth:ApiDataService, public zone: NgZone,private route: ActivatedRoute,private router: Router
     ) {
      
    }
@@ -24,29 +25,60 @@ mon;tue;wen;thur;fri;sat;curr;currsec;now;test;sun;
     week: new FormControl()
   })
   interval;
+  interval2;
+  
 st=0;
 vt=0;
 diff=0;
+id;
+prikaz;
+gele=[];
+ 
+  private sub: any;
+
+ updateDays(){
+  this.curr = new Date;
+  this.now = new Date;
+  this.currsec=new Date().getTime();
+ 
+
+  this.sun = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()));
+ this.mon = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+1));
+ this.tue = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+2));
+ this.wen = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+3));
+ this.thur = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+4));
+ this. fri = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+5));
+ this.sat = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+6)); 
+ console.log(this.mon)
+}
+
+
+
   ngOnInit() {
     this.interval = setInterval(() => {
-      this.podatki();
+      this.podatki(); 
+        this.updateDays()
   }, 60000);
+  this.updateDays()
     this.podatki()
-    this.curr = new Date;
-    this.now = new Date;
-    this.currsec=new Date().getTime();
-   
+    
+     if(this.route.params){
+    this.sub = this.route.params.subscribe(params => {
+      this.id = params['id'];
+   if(this.id=="notv"){
+this.prikaz=true;
+   }
+    
+    })
+  }
+     
+    
+ 
 
-    this.sun = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()));
-   this.mon = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+1));
-   this.tue = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+2));
-   this.wen = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+3));
-   this.thur = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+4));
-   this. fri = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+5));
-   this.sat = new Date(this.curr.setDate(this.curr.getDate() - this.curr.getDay()+6));
   }
  
  async podatki(){
+  
    var kdaj;
    var timesmon=0;
    var timestue=0;
@@ -58,14 +90,21 @@ diff=0;
   var today=new Date();
   var ago7=today.setDate(today.getDate() - 7);
   
-  console.log(this.subject_room=new Array())
+  this.subject_room=new Array()
+  this.gele=new Array()
  
     this.data= await this.auth.get("data").toPromise()
   this.rooms=this.data[0];
-  console.log(this.rooms)
+if(this.id=="notv"){
+  for(var l=0;l<this.data[0].length;l++){
+this.gele.push(this.data[0][l].prostor )
+  }
+}
+ 
+ 
  
   for(var i=0;i<this.data[1].length;i++){
-    
+   
   
       kdaj=this.data[1][i].start_date;
      dan=new Date(kdaj*1000).getDate();
@@ -97,7 +136,7 @@ diff=0;
     
   }
  this.vt=Math.max(timesmon,timestue,timeswen,timesthur,timesfri,timessat);
-  console.log(this.subject_room)
+  
   if(this.st>15 || this.vt>5){
   
     this.diff=1;
@@ -161,13 +200,13 @@ diff=0;
     selected=new Date(this.weekForm.value.week).setHours(0,0,0,0)
     selected=new Date(selected)
     selected = new Date(selected.setDate(selected.getDate() - selected.getDay()+1));
-    console.log(selected)
+   
     this.subject_room=new Array();
    if(this.sat.setHours(0,0,0,0)<selected){
    
     var timeDiff = Math.abs(selected - this.curr);
     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-   console.log(diffDays)
+  
      weekInMilliseconds = diffDays * 24 * 60 * 60 * 1000;
      this.sun = new Date(selected.setDate(selected.getDate() - selected.getDay()));
      this.mon = new Date(selected.setDate(selected.getDate() - selected.getDay()+1));
@@ -182,7 +221,7 @@ diff=0;
    }else{
     var timeDiff = Math.abs( this.curr-selected );
     var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-    console.log(diffDays)
+    
      weekInMilliseconds = diffDays * 24 * 60 * 60 * 1000;
      this.sun = new Date(this.sun.setTime(this.sun.getTime() - weekInMilliseconds));
      this.mon = new Date(this.mon.setTime(this.mon.getTime()-  weekInMilliseconds));

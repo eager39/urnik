@@ -2,12 +2,12 @@
 		<tr>
 		  <th >Prostor</th>
 		
-		  <th >ponedeljek {{mon |date | date:'d/M/yy'}}</th> 
-		  <th >torek {{tue |date | date:'d/M/yy'}}</th>
-		  <th >sreda {{wen |date | date:'d/M/yy'}}</th> 
-		  <th >četrtek {{thur |date | date:'d/M/yy'}}</th>
-		  <th >petek {{fri |date | date:'d/M/yy'}}</th> 
-		  <th >sobota {{sat |date | date:'d/M/yy'}}</th>
+		  <th >ponedeljek {{mon |date | date:'d. M. yy'}}</th> 
+		  <th >torek {{tue |date | date:'d. M. yy'}}</th>
+		  <th >sreda {{wen |date | date:'d. M. yy'}}</th> 
+		  <th >četrtek {{thur |date | date:'d. M. yy'}}</th>
+		  <th >petek {{fri |date | date:'d. M. yy'}}</th> 
+		  <th >sobota {{sat |date | date:'d. M. yy'}}</th>
 		</tr>
 		
 		<tr   *ngFor="let item of rooms ;let i=index">
@@ -38,11 +38,24 @@
 				</td>
 				
 			  </tr>
+
+			  
+
 		
 		
 	  </table>	
-	  <button (click)="removeweek()" >Prejšni teden</button>
-	  <button (click)="addweek()" >Naslednji teden</button>
+	  
+	  <ng-container *ngIf="prikaz">
+		  <button (click)="removeweek()" >Prejšni teden</button>
+	  <button (click)="addweek()" >Naslednji teden</button><br/>
+	  <ng-container *ngFor="let predmet of subject_room;let a=index">
+	  <ng-container *ngIf="!gele.includes(predmet.prostor)" >
+		{{predmet.predmet}} --> ni vpisan prostor oz se ne ujema z nobenim vpisanim<br/>
+		
+	  </ng-container>
+	  </ng-container>
+	 
+	  
 	 
 	  <form [formGroup]="weekForm">
 		  

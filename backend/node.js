@@ -194,7 +194,7 @@ app.get('/data', function(req, res) {
    var sql = "SELECT ime as prostor,value,nad FROM prostori;SELECT smer,predmet,prostor,end_date,start_date FROM prostor_predmet  order by start_date asc "
    connection.query(sql, function(err, results) {
       if (err) throw err
-      console.log(results)
+     // console.log(results)
       res.send(results);
    });
 }, err => {
