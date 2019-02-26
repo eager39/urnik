@@ -12,10 +12,7 @@ const routes: Routes = [
     path:"",
     component:HomeComponent
   },
-  {
-    path:"**",
-    component:HomeComponent
-  },
+ 
   {
     path:"update",
     component:UpdateComponent
@@ -23,7 +20,11 @@ const routes: Routes = [
   {
     path:"home/:id",
     component:HomeComponent
-  }
+  },
+   {
+    path:"**",
+    component:HomeComponent
+  },
   
 ];
 

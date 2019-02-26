@@ -27,6 +27,7 @@ function updateUrnik() {
           polje5 = [];
           polje6 = [];
           polje7 = [];
+          polje8 = [];
       var prostori = [];
       var today = new Date();
       var ago7 = today.setDate(today.getDate() - 7);
@@ -136,7 +137,22 @@ function updateUrnik() {
             resolve(polje7);
          });
       });
-      Promise.all([promise1, promise2, promise3, promise4, promise5,promise6,promise7]).then(function(values) {
+      var promise8 = new Promise(function(resolve, reject) {
+         var data = ical.fromURL("https://calendar.google.com/calendar/ical/academia.si_2qrfagpq3o208n0rqdilo7bic4%40group.calendar.google.com/public/basic.ics", {}, function(err, data) {
+            if (err) reject(err);
+            values = data
+            for (var k in values) {
+               if (values.hasOwnProperty(k)) {
+                  var ev = values[k];
+                  if ((Date.parse(ev.start)) / 1000 > (Math.floor(ago7 / 1000))) {
+                     polje8.push([ev.summary, ev.location, (Date.parse(ev.start) / 1000), (Date.parse(ev.end) / 1000), "Dogodek"])
+                  }
+               }
+            }
+            resolve(polje8);
+         });
+      });
+      Promise.all([promise1, promise2, promise3, promise4, promise5,promise6,promise7,promise8]).then(function(values) {
          for (var i = 0; i < values.length; i++) {
             for (var j = 0; j < values[i].length; j++) {
                prostori.push(values[i][j][1])
