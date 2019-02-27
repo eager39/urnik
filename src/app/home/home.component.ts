@@ -55,10 +55,7 @@ gele=[];
 
 
   ngOnInit() {
-    this.interval = setInterval(() => {
-      this.podatki(); 
-        this.updateDays()
-  }, 60000);
+  
   this.updateDays()
     this.podatki()
     
@@ -67,6 +64,11 @@ gele=[];
       this.id = params['id'];
    if(this.id=="notv"){
 this.prikaz=true;
+   }else{
+    this.interval = setInterval(() => {
+      this.podatki(); 
+        this.updateDays()
+  }, 60000);
    }
     
     })

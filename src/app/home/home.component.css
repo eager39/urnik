@@ -34,14 +34,14 @@ table {
  
   .prostor{
       display:table-cell;
-   font-size: 20px!important;
+   font-size: 16px!important;
    white-space:nowrap;
       vertical-align: middle;
   }
   
     th {
    border-right: 3px solid black;
-  font-size: 20px!important;
+  font-size: 16px!important;
   
   }
   td{
@@ -112,10 +112,10 @@ text-align: center;
     background-color: rgba(255, 15, 15, 0.897)!important;
 }
 .Economist{
-    background-color: rgb(189, 192, 3)!important;
+    background-color: rgb(226, 172, 1)!important;
 }
 .Mechanical{
-    background-color: rgb(70, 107, 2)!important;
+    background-color: rgb(226, 107, 2)!important;
 }
 .Dogodek{
     background-color: rgba(2, 160, 147, 0.692)!important;
