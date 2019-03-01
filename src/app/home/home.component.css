@@ -75,7 +75,7 @@ table {
  
     text-align:center;
     width: 100%;
-    color:white;
+    color:black;
    
    
 
@@ -103,16 +103,16 @@ text-align: center;
     
 }
 .Strojnistvo{
-    background-color: rgb(58, 14, 253)!important;
+    background-color: rgb(51,128,255)!important;
 }
 .Ekonomist{
     background-color: rgba(71, 12, 235,0.53)!important;
 }
 .Medijska{
-    background-color: rgba(255, 15, 15, 0.897)!important;
+    background-color: rgba(255,57,51)!important;
 }
 .Economist{
-    background-color: rgb(226, 172, 1)!important;
+    background-color: rgb(230, 255, 51)!important;
 }
 .Mechanical{
     background-color: rgb(226, 107, 2)!important;
